@@ -1,11 +1,12 @@
 using System;
 using ToDoList.Models;
+using System.Collections.Generic;
 
 namespace ToDoList
 {
     class Program
     {
-        public static void main()
+        public static void Main()
         {
             int i = 1;
             Console.WriteLine("Welcome to the To Do List.");
@@ -22,12 +23,21 @@ namespace ToDoList
                 if(input.ToLower() == "add")
                 {
                     Console.WriteLine("Please enter the description for the new item.");
-                    string desc = Console.ReadLine();
-                    new Item($"{i.ToString()}. ${desc}");
+                    new Item($"{i.ToString()}. {Console.ReadLine()}");
+                    i++;
+                }
+                else if (input.ToLower() == "view")
+                {
+                    List<string> descList = new List<string>();
+                    foreach (Item Item in Item.GetAll())
+                    {
+                        descList.Add(Item.Description);
+                    }
+                    string viewList = string.Join(", ", descList);
+                    Console.WriteLine($"{viewList}");
                 }
 
 
-                i++;
             }
             Environment.Exit(0);
         }
